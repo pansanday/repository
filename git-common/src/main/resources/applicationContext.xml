@@ -19,4 +19,17 @@
 		</property>
 	</bean>
 
+	<bean id="lifeCycleBean" class="com.git.bean.lifecycle.LifeCycleBean"
+		init-method="inits" destroy-method="destroy">
+		<property name="name" value="apple" />
+	</bean>
+
+	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
+	<bean id="person" class="com.git.bean.lifecycle.Person" scope="singleton"
+		lazy-init="false" init-method="init" destroy-method="destory" />
+
+	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
+	<bean id="person2" class="com.git.bean.lifecycle.Person2" scope="singleton"
+		lazy-init="false" init-method="init" destroy-method="destory" />
+
 </beans>
