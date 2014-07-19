@@ -2,17 +2,17 @@ package model;
 
 public class Book {
 
-	private Long auto_id;
+	private long auto_id;
 	private String title;
 	private String author;
 	private String publish;
 	private double price;
 
-	public Long getAuto_id() {
+	public long getAuto_id() {
 		return auto_id;
 	}
 
-	public void setAuto_id(Long auto_id) {
+	public void setAuto_id(long auto_id) {
 		this.auto_id = auto_id;
 	}
 

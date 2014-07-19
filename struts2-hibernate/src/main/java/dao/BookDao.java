@@ -46,6 +46,7 @@ public class BookDao {
 
 	public void updateBook(Book book) {
 		Transaction tran = session.beginTransaction();
+		System.out.println("auto_id is: "+book.getAuto_id());
 		session.update(book);
 		tran.commit();
 		session.close();

@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 	<class name="model.Book" table="BOOK_INFO">
-		<id name="auto_id" type="java.lang.Long">
+		<id name="auto_id" type="long">
 			<column name="AUTO_ID" precision="22" scale="0" length="20" />
 			<!-- 这里的class使用sequence,sequence生成的序列是数字,用Long;如果auto_id想用String,那么这里的class应该改成uuid,全球唯一 -->
 			<generator class="sequence">
