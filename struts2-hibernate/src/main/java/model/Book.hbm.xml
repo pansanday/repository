@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding='UTF-8'?> 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="model.Book" table="BOOK_INFO">
+		<id name="auto_id" type="java.lang.Long">
+			<column name="AUTO_ID" precision="22" scale="0" length="20" />
+			<!-- 这里的class使用sequence,sequence生成的序列是数字,用Long;如果auto_id想用String,那么这里的class应该改成uuid,全球唯一 -->
+			<generator class="sequence">
+				<param name="sequence">BOOK_SEQ</param>
+			</generator>
+		</id>
+		<property name="title" type="string" column="TITLE" not-null="true"
+			length="200" />
+		<property name="author" type="string" column="AUTHOR"
+			not-null="true" length="200" />
+		<property name="publish" type="string" column="PUBLISH"
+			length="200" />
+		<property name="price" type="java.lang.Double" column="PRICE"
+			length="200" />
+	</class>
+</hibernate-mapping>

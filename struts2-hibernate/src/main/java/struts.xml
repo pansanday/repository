@@ -1,0 +1,17 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- 用来配置Struts2的Action定义以及Action处理结果和物理资源之间的映射关系 -->
+<struts>
+	<include file="struts-default.xml" />
+	<!-- struts2的action必须放在一个指定的包空间下定义 -->
+	<package name="default" extends="struts-default">
+		<!-- 该action负责处理URL为login.action的用户请求,处理时,action将调用它的execute()方法处理用户请求, 
+			如果execute()方法返回success这个结果字符串,请求将被转发到/success.jsp页面, 如果execute()方法返回error,则请求被转发到error.jsp页面 -->
+		<action name="login" class="action.LoginAction">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="SUCCESS">/success.jsp</result>
+			<result name="ERROR">/error.jsp</result>
+		</action>
+	</package>
+</struts>
