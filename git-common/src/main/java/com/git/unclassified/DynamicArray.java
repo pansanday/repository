@@ -20,6 +20,16 @@ public class DynamicArray {
             System.out.println(Arrays.toString(numArray));
         }
     }
+    
+	public String changeStringOrder(String string) {
+
+		char[] temp = string.toCharArray(); // 将string字符串转换成char[]数组
+		String str = "";
+		for (int i = 1; i <= temp.length; i++) {
+			str += temp[temp.length - i]; // 通过循环遍历,将尾元素以此加入到str上
+		}
+		return str;
+	}
 }
 
 /**
