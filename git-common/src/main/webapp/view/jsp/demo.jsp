@@ -10,8 +10,11 @@
 <script type="text/javascript">
 	function popup() {
 		new PopupWindow({
-			message : "鱼香肉丝<br>青椒土豆丝",
-			level : "WARN"
+			text : "鱼香肉丝<br>青椒土豆丝",
+			level : "INFO",
+			callback : function () {
+				alert('haha');
+			}
 		});
 	}
 </script>
