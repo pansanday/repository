@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+	<!-- springmvc 注解驱动 -->
+	<mvc:annotation-driven/>
+	<!-- 包扫描器 -->
+	<context:component-scan base-package="com.git.annotation"/>
+	
+	<!-- 配置视图解析器ModelAndView -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 逻辑名称的前缀 -->
+		<property name="prefix" value="/view/"></property>
+		<!-- 返回的逻辑名称的后缀 -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="lifeCycleBean" class="com.git.bean.lifecycle.LifeCycleBean"
+		init-method="inits" destroy-method="destroy">
+		<property name="name" value="apple" />
+	</bean>
 
+	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
+	<bean id="person" class="com.git.bean.lifecycle.Person" scope="singleton"
+		lazy-init="false" init-method="init" destroy-method="destory" />
+
+	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
+	<bean id="person2" class="com.git.bean.lifecycle.Person2" scope="singleton"
+		lazy-init="false" init-method="init" destroy-method="destory" />
+
+	<!-- 数据库连接池配置==================================================================================== -->
 	<!-- Spring创建数据连接池 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName">
@@ -19,19 +53,7 @@
 		</property>
 	</bean>
 
-	<bean id="lifeCycleBean" class="com.git.bean.lifecycle.LifeCycleBean"
-		init-method="inits" destroy-method="destroy">
-		<property name="name" value="apple" />
-	</bean>
-
-	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
-	<bean id="person" class="com.git.bean.lifecycle.Person" scope="singleton"
-		lazy-init="false" init-method="init" destroy-method="destory" />
-
-	<!-- 配置初始化方法和销毁方法，但是如果要销毁方法生效scope="singleton" -->
-	<bean id="person2" class="com.git.bean.lifecycle.Person2" scope="singleton"
-		lazy-init="false" init-method="init" destroy-method="destory" />
-
+	<!-- 定时任务配置==================================================================================== -->
 	<!-- 任务1配置 -->
 	<bean name="job1" class="com.git.quartz.Job1Demo" />
 	<bean id="jobDetail_1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -54,7 +76,6 @@
 			<value>0 0 12 * * ?</value> <!-- 每天12点 -->
 		</property>
 	</bean>
-
 	<!-- 任务2配置 -->
 	<bean name="job2" class="com.git.quartz.Job2Demo" />
 	<bean id="jobDetail_2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -74,7 +95,6 @@
 			<value>0 0 12 * * ?</value> <!-- 每天12点 -->
 		</property>
 	</bean>
-
 	<!-- 总配置 -->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<!-- 添加触发器 -->
