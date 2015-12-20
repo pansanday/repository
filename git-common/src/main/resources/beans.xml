@@ -15,8 +15,8 @@
 	</bean>
 
 	<!-- Derby数据库数据源 -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!-- DriverManagerDataSource建立连接是只要有连接就新建一个connection,没有连接池的作用,多用于测试 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
 		<property name="url" value="jdbc:derby://localhost:1527/bank;create=true" />
 		<property name="username" value="app" />
@@ -25,9 +25,7 @@
 	<bean id="accountDao" class="com.git.testing.JdbcAccountDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
 </beans>
