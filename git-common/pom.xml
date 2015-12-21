@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javamail.version>1.4.1</javamail.version>
-		<org.springframework.version>4.0.5.RELEASE</org.springframework.version>
+		<org.springframework.version>4.1.7.RELEASE</org.springframework.version>
 	</properties>
 
 	<build>
@@ -143,6 +143,12 @@
 			<version>3.0.5.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 		<!-- junit 3 程序库 -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -169,11 +175,19 @@
 			<artifactId>easymock</artifactId>
 			<version>2.4</version>
 		</dependency>
+		
 		<!-- Derby 数据库 -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<version>10.10.2.0</version>
+		</dependency>
+		
+		<!-- MySql 数据库 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
 		</dependency>
 
 		<dependency>
@@ -218,6 +232,13 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
+		</dependency>
+		
+		<!-- c3p0数据源连接池 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5</version>
 		</dependency>
 		
 		<!-- 使用hamcest时候要先引用包 -->
