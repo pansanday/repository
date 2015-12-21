@@ -1,0 +1,13 @@
+一.DBCP数据源
+
+二.C3P0数据源
+1.简介
+C3P0是一个开放源代码的JDBC数据源实现项目，它在lib目录中与Hibernate一起发布，
+实现了JDBC3和JDBC2扩展规范说明的 Connection 和Statement 池。
+C3P0类包位于<spring_home></spring_home>/lib/c3p0/c3p0-0.9.0.4.jar
+2.jar包依赖
+<dependency>
+	<groupId>com.mchange</groupId>
+	<artifactId>c3p0</artifactId>
+	<version>0.9.5</version>
+</dependency>
