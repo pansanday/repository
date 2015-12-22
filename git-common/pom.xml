@@ -191,6 +191,19 @@
 			<version>5.1.18</version>
 		</dependency>
 
+		<!-- Mybatis 开发包 --> 
+        <dependency> 
+            <groupId>org.mybatis</groupId> 
+            <artifactId>mybatis-spring</artifactId> 
+            <version>1.1.1</version> 
+        </dependency> 
+        <!-- Mybatis 和Spring的整合包,是mybatis出的--> 
+        <dependency> 
+            <groupId>org.mybatis</groupId> 
+            <artifactId>mybatis</artifactId> 
+            <version>3.1.1</version> 
+        </dependency>
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -221,7 +234,7 @@
 			<version>2.6</version>
 		</dependency>
 
-		<!-- javax,Struts 2 -->
+		<!-- javax.servlet.http.HttpServlet,Struts 2 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
