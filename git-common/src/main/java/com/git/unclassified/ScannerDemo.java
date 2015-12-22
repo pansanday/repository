@@ -31,6 +31,7 @@ public class ScannerDemo {
 		System.out.println("所输入的数是:" + printArray(a));
 		System.out.println("正数有:" + positiveCount + "个\t" + "负数有:"
 				+ nagetiveCount + "个\t" + "零有:" + zeroCount + "个");
+		scan.close();
 	}
 
 	public static String printArray(Integer[] o) {
