@@ -11,13 +11,13 @@ import org.junit.Test;
  * @author pansanday
  * @since 2016年1月10日
  */
-public class ConnectionFactoryTest {
+public class JdbcConnectionFactoryTest {
 
     @Test
     public void testGetConnection() {
         Connection connection = null;
         try {
-            connection = ConnectionFactory.getConnection();
+            connection = JdbcConnectionFactory.getConnection();
             PreparedStatement pStatement = connection.prepareStatement("select * from dual");
             ResultSet rs = pStatement.executeQuery();
             String result = "";

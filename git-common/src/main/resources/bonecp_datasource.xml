@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 引入外部的属性文件 -->
+	<context:property-placeholder location="classpath:bonecp_jdbc.properties"/>
+	<!-- 配置c3p0连接池 -->
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${jdbcUrl}" />
+		<property name="username" value="${user}" />
+		<property name="password" value="${password}" />
+		<property name="idleConnectionTestPeriod" value="${idleConnectionTestPeriod}" />
+		<property name="idleMaxAge" value="${idleMaxAge}" />
+		<property name="maxConnectionsPerPartition" value="${maxConnectionsPerPartition}" />
+		<property name="minConnectionsPerPartition" value="${minConnectionsPerPartition}" />
+		<property name="partitionCount" value="${partitionCount}" />
+		<property name="acquireIncrement" value="${acquireIncrement}" />
+		<property name="statementsCacheSize" value="${statementsCacheSize}" />
+		<property name="releaseHelperThreads" value="${releaseHelperThreads}" />
+	</bean>
+	
+	<!-- 配置业务层类 -->
+	<bean id="bonecpService" class="com.git.jdbc.BoneCpServiceImpl">
+		<property name="bonecpDao" ref="bonecpDao"/>
+	</bean>
+	<!-- 配置DAO的类 -->
+	<bean id="bonecpDao" class="com.git.jdbc.BoneCpDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+</beans>

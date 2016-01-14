@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
  * @author pansanday
  * @since 2016年1月10日
  */
-public class ConnectionFactory {
+public class JdbcConnectionFactory {
 
-    final static Logger logger = LoggerFactory.getLogger(ConnectionFactory.class);
+    final static Logger logger = LoggerFactory.getLogger(JdbcConnectionFactory.class);
 
     private static ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
     private static String driverClass = bundle.getString("driverClass");
