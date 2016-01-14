@@ -11,9 +11,7 @@ import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
 /**
- * @author pansanday
- * @since 2016年1月14日
- * BoneCp数据库连接池
+ * 不使用Spring,通过JDBC获得BoneCp数据库连接池
  */
 public class BoneCpConnectionFactory {
     
@@ -25,6 +23,7 @@ public class BoneCpConnectionFactory {
      * Constructor
      */
     private BoneCpConnectionFactory() {
+        // 读取classpath下的bonecp_jdbc.properties文件
         ResourceBundle bundle = ResourceBundle.getBundle("bonecp_jdbc");
         try {
             // load the database driver
@@ -38,9 +37,9 @@ public class BoneCpConnectionFactory {
         config.setJdbcUrl(bundle.getString("jdbcUrl"));
         config.setUsername(bundle.getString("user"));
         config.setPassword(bundle.getString("password"));
-        config.setMinConnectionsPerPartition(5);
-        config.setMaxConnectionsPerPartition(10);
-        config.setPartitionCount(1);
+        config.setMinConnectionsPerPartition(Integer.parseInt(bundle.getString("minConnectionsPerPartition")));
+        config.setMaxConnectionsPerPartition(Integer.parseInt(bundle.getString("maxConnectionsPerPartition")));
+        config.setPartitionCount(Integer.parseInt(bundle.getString("partitionCount")));
 
         try {
             connectionPool = new BoneCP(config);
