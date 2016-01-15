@@ -14,10 +14,11 @@ import com.jolbox.bonecp.BoneCPConfig;
  * 不使用Spring,通过JDBC获得BoneCp数据库连接池
  */
 public class BoneCpConnectionFactory {
-    
+
     Logger logger = LoggerFactory.getLogger(BoneCpConnectionFactory.class);
 
     private static BoneCP connectionPool = null;
+    private static BoneCpConnectionFactory instance;
 
     /**
      * Constructor
@@ -47,24 +48,34 @@ public class BoneCpConnectionFactory {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * 单例模式类实例.保证只调用一次构造函数,只创建一个数据库连接池
+     * @return 类实例
+     */
+    private static BoneCpConnectionFactory getInstance() {
+        synchronized (BoneCpConnectionFactory.class) {
+            if (instance == null) {
+//              System.out.println("类实例为空,创建,并只创建一次.");
+              BoneCpConnectionFactory.instance = new BoneCpConnectionFactory();
+            }
+        }
+        return instance;
+    }
 
     /**
-     * 获取数据库连接池 
-     * @return
+     * 从数据库连接池中获取对象
+     * @return connection连接
      * @throws SQLException
      */
     public static Connection getConnection() throws SQLException {
-        synchronized (BoneCpConnectionFactory.class) {
-            if (connectionPool == null) {
-                new BoneCpConnectionFactory();
-            }
-            // fetch a connection
-            Connection connection = connectionPool.getConnection();
-            connection.setAutoCommit(true);
-            return connection;
-        }
+        getInstance();
+        // System.out.println("每次获得的数据库连接池都是唯一的:" + connectionPool);
+        Connection connection = connectionPool.getConnection();
+        connection.setAutoCommit(true);
+        return connection;
     }
-    
+
     /**
      * 释放连接
      * @param connection
@@ -79,20 +90,48 @@ public class BoneCpConnectionFactory {
             }
         }
     }
-    
+
     public static void main(String[] args) {
-        try {
-            Connection connection = BoneCpConnectionFactory.getConnection();
-            PreparedStatement pst = connection.prepareStatement("select * from testtable");
-            ResultSet rs = pst.executeQuery();
-            while(rs.next()) {
-                System.out.println(rs.getString(2));
+        Connection connection = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            try {
+                connection = BoneCpConnectionFactory.getConnection();
+                // System.out.println("connection" + i + " ==> " + connection);
+                pst = connection.prepareStatement("select * from testtable");
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    // System.out.println(rs.getString(2));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (pst != null) {
+                    try {
+                        pst.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            rs.close();
-            pst.close();
-            releaseConnection(connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("消耗的时间为:" + (endTime - startTime) + "毫秒");
     }
 }
