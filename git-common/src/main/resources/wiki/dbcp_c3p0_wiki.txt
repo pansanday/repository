@@ -1,4 +1,10 @@
+数据库连接池
+由于建立数据库连接是一个非常耗时耗资源的行为,所以通过连接池预先同数据库建立一些连接,放在内存中,
+应用程序需要建立数据库连接时直接到连接池中申请一个就行,用完后再放回去.
+
 一.DBCP数据源
+DBCP(DataBase connection pool),数据库连接池.是 apache上的一个java连接池项目,也是 tomcat使用的连接池组件.
+单独使用dbcp需要2个包:commons-dbcp.jar,commons-pool.jar
 
 二.C3P0数据源
 1.简介
