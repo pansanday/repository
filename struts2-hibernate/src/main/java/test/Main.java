@@ -8,10 +8,10 @@ public class Main {
 		BookDao dao = new BookDao();
 		Book book = new Book();
 		book.setAuto_id(17);
-		book.setAuthor("×÷Õß");
+		book.setAuthor("ä½œè€…");
 		book.setPrice(100);
-		book.setPublish("±±¾©´óÑ§³ö°æÉç");
-		book.setTitle("ŒÅË¿¼ÓÓÍ");
+		book.setPublish("åŒ—äº¬å¤§å­¦å‡ºç‰ˆç¤¾");
+		book.setTitle("æ½˜é å³");
 //		dao.saveBook(book);
 		dao.updateBook(book);
 	}
