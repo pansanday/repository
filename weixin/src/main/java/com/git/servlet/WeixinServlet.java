@@ -20,10 +20,10 @@ public class WeixinServlet extends HttpServlet {
      * 参见接入指南：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319&token=&lang=zh_CN
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String signature = req.getParameter("signature");
-        String timestamp = req.getParameter("timestamp");
-        String nonce = req.getParameter("nonce");
-        String echostr = req.getParameter("echostr");
+        String signature = req.getParameter("signature"); // 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
+        String timestamp = req.getParameter("timestamp"); // 时间戳
+        String nonce = req.getParameter("nonce"); // 随机数
+        String echostr = req.getParameter("echostr"); // 随机字符串
 
         PrintWriter out = resp.getWriter();
         if (CheckUtil.checkSignature(signature, timestamp, nonce)) {
@@ -60,6 +60,11 @@ public class WeixinServlet extends HttpServlet {
                 if (MessageUtil.MESSAGE_SUBSCRIBE.equals(eventType)) {
                     message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
                 }
+            } else if (MessageUtil.MESSAGE_LINK.equals(msgType)) {
+            	message = MessageUtil.initText(toUserName, fromUserName, "你发送的是链接");
+            } else if (MessageUtil.MESSAGE_IMAGE.equals(msgType)) {
+            	message = MessageUtil.initText(toUserName, fromUserName, "你发送的是图片");
+            	System.out.println(message);
             }
             out.print(message);
         } catch (DocumentException e) {
