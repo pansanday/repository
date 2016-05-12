@@ -40,9 +40,13 @@ public class WeixinServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         try {
             Map<String, String> map = MessageUtil.xmlToMap(req);
-            String fromUserName = map.get("FromUserName");
-            String toUserName = map.get("ToUserName");
-            String msgType = map.get("MsgType");
+            String fromUserName = map.get("FromUserName"); // 发送方微信账号
+            String toUserName = map.get("ToUserName"); // 开发者微信公众号
+            String createTime = map.get("CreateTime"); // 消息创建时间
+            String msgType = map.get("MsgType"); // 消息类型
+            String picUrl = map.get("PicUrl"); // 存储用户发来的图片链接地址,通过这个地址可以将图片另存为本地
+            String mediaId = map.get("MediaId"); // 图片消息媒体ID
+            String msgId = map.get("MsgId"); // 消息内容的随机ID
             String content = map.get("Content");
 
             String message = null;
@@ -63,7 +67,16 @@ public class WeixinServlet extends HttpServlet {
             } else if (MessageUtil.MESSAGE_LINK.equals(msgType)) {
             	message = MessageUtil.initText(toUserName, fromUserName, "你发送的是链接");
             } else if (MessageUtil.MESSAGE_IMAGE.equals(msgType)) {
-            	message = MessageUtil.initText(toUserName, fromUserName, "你发送的是图片");
+                StringBuffer sBuffer = new StringBuffer();
+                sBuffer.append("开发者id: " + toUserName + "\n");
+                sBuffer.append("用户id: " + fromUserName + "\n");
+                sBuffer.append("图片消息id: " + msgId + "\n");
+                sBuffer.append("图片消息发送过来的时间戳: " + createTime + "\n");
+                sBuffer.append("图片消息类型: " + msgType + "\n");
+                sBuffer.append("图片消息链接地址: " + picUrl + "\n");
+                sBuffer.append("图片消息媒体的id: " + mediaId);
+                message = MessageUtil.initText(toUserName, fromUserName, sBuffer.toString());
+//            	message = MessageUtil.initImage(toUserName, fromUserName, picUrl, mediaId, msgId, sBuffer.toString());
             	System.out.println(message);
             }
             out.print(message);

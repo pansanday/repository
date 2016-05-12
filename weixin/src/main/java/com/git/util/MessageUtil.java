@@ -11,22 +11,24 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import com.git.po.ImageMessage;
 import com.git.po.TextMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class MessageUtil {
 
-    public static final String MESSAGE_TEXT = "text";
-    public static final String MESSAGE_IMAGE = "image";
-    public static final String MESSAGE_VOICE = "voice";
-    public static final String MESSAGE_VIDEO = "video";
-    public static final String MESSAGE_LINK = "link";
-    public static final String MESSAGE_LOCATION = "location";
-    public static final String MESSAGE_EVENT = "event";
-    public static final String MESSAGE_SUBSCRIBE = "subscribe";
-    public static final String MESSAGE_UNSUBSCRIBE = "unsubscribe";
-    public static final String MESSAGE_CLICK = "CLICK";
-    public static final String MESSAGE_VIEW = "VIEW";
+    // 微信公众号能够接收的消息类型有如下类型
+    public static final String MESSAGE_TEXT = "text"; // 文本
+    public static final String MESSAGE_IMAGE = "image"; // 图片
+    public static final String MESSAGE_VOICE = "voice"; // 语音
+    public static final String MESSAGE_VIDEO = "video"; // 视频
+    public static final String MESSAGE_LINK = "link"; // 链接消息
+    public static final String MESSAGE_LOCATION = "location"; // 地理位置
+    public static final String MESSAGE_EVENT = "event"; // 事件
+    public static final String MESSAGE_SUBSCRIBE = "subscribe"; // 关注
+    public static final String MESSAGE_UNSUBSCRIBE = "unsubscribe"; // 取消关注
+    public static final String MESSAGE_CLICK = "CLICK"; // 菜单点击
+    public static final String MESSAGE_VIEW = "VIEW"; // 菜单查看
 
     /**
      * xml转为map集合
@@ -67,6 +69,17 @@ public class MessageUtil {
         xStream.alias("xml", textMessage.getClass());
         return xStream.toXML(textMessage);
     }
+    
+    /**
+     * 将图片消息对象转为xml
+     * @param imageMessage
+     * @return
+     */
+    public static String imageMessageToXml(ImageMessage imageMessage) {
+        XStream xStream = new XStream();
+        xStream.alias("xml", imageMessage.getClass());
+        return xStream.toXML(imageMessage);
+    }
 
     public static String initText(String toUserName, String fromUserName, String content) {
         TextMessage text = new TextMessage();
@@ -76,6 +89,19 @@ public class MessageUtil {
         text.setCreateTime(new Date().getTime());
         text.setContent(content);
         return MessageUtil.textMessageToXml(text);
+    }
+    
+    public static String initImage(String toUserName, String fromUserName, String picUrl, String mediaId, String msgId, String content) {
+        ImageMessage imageMessage = new ImageMessage();
+        imageMessage.setFromUserName(toUserName);
+        imageMessage.setToUserName(fromUserName);
+        imageMessage.setMsgType(MessageUtil.MESSAGE_IMAGE);
+        imageMessage.setCreateTime(new Date().getTime());
+//        imageMessage.setPicUrl(picUrl);
+//        imageMessage.setMediaId(mediaId);
+//        imageMessage.setMsgId(msgId);
+        imageMessage.setContent(content);
+        return MessageUtil.imageMessageToXml(imageMessage);
     }
 
     /**
