@@ -91,16 +91,20 @@ public class MessageUtil {
         return MessageUtil.textMessageToXml(text);
     }
     
-    public static String initImage(String toUserName, String fromUserName, String picUrl, String mediaId, String msgId, String content) {
+    // TODO:这里不好,参见重新设计http://blog.csdn.net/morning99/article/details/43865471
+    public static String initImage(String toUserName, String fromUserName, String msgId, String createTime, String mediaId) {
         ImageMessage imageMessage = new ImageMessage();
         imageMessage.setFromUserName(toUserName);
         imageMessage.setToUserName(fromUserName);
         imageMessage.setMsgType(MessageUtil.MESSAGE_IMAGE);
         imageMessage.setCreateTime(new Date().getTime());
+        ImageMessage imageMessage2 = new ImageMessage();
+        imageMessage2.setMediaId(mediaId);
+        
+        imageMessage.setImage(imageMessage2);
 //        imageMessage.setPicUrl(picUrl);
 //        imageMessage.setMediaId(mediaId);
 //        imageMessage.setMsgId(msgId);
-        imageMessage.setContent(content);
         return MessageUtil.imageMessageToXml(imageMessage);
     }
 

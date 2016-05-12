@@ -32,7 +32,7 @@ public class WeixinServlet extends HttpServlet {
     }
 
     /**
-     * 参加消息接收和响应：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140453&token=&lang=zh_CN
+     * 参见消息接收和响应：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140453&token=&lang=zh_CN
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -75,8 +75,9 @@ public class WeixinServlet extends HttpServlet {
                 sBuffer.append("图片消息类型: " + msgType + "\n");
                 sBuffer.append("图片消息链接地址: " + picUrl + "\n");
                 sBuffer.append("图片消息媒体的id: " + mediaId);
-                message = MessageUtil.initText(toUserName, fromUserName, sBuffer.toString());
-//            	message = MessageUtil.initImage(toUserName, fromUserName, picUrl, mediaId, msgId, sBuffer.toString());
+//                message = MessageUtil.initText(toUserName, fromUserName, sBuffer.toString());
+                
+            	message = MessageUtil.initImage(toUserName, fromUserName, msgId, createTime, mediaId);
             	System.out.println(message);
             }
             out.print(message);
