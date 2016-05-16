@@ -18,6 +18,10 @@ public class BookDao {
 		this.session = sessionFactory.openSession();
 	}
 
+	/**
+	 * 增加图书
+	 * @param book
+	 */
 	public void saveBook(Book book) {
 		Transaction tran = session.beginTransaction();
 		this.session.save(book);
@@ -25,6 +29,10 @@ public class BookDao {
 		this.session.close();
 	}
 
+	/**
+	 * 删除图书
+	 * @param book
+	 */
 	public void delBook(Book book) {
 		Transaction tran = session.beginTransaction();
 		this.session.delete(book);
@@ -32,6 +40,10 @@ public class BookDao {
 		session.close();
 	}
 
+	/**
+	 * 根据id删除图书
+	 * @param ids
+	 */
 	public void delBookById(String ids) {
 		Transaction tran = session.beginTransaction();
 		String hql = "DELETE BOOK WHERE auto_id in(?)";
@@ -42,6 +54,10 @@ public class BookDao {
 		session.close();
 	}
 
+	/**
+	 * 修改图书
+	 * @param book
+	 */
 	public void updateBook(Book book) {
 		Transaction tran = session.beginTransaction();
 		System.out.println("auto_id is: "+book.getAuto_id());
@@ -50,6 +66,10 @@ public class BookDao {
 		session.close();
 	}
 
+	/**
+	 * 得到图书的集合
+	 * @return
+	 */
 	public List getBookList() {
 		List bookList = null;
 		String hql = "FROM BOOK AS B";
@@ -58,6 +78,11 @@ public class BookDao {
 		return bookList;
 	}
 
+	/**
+	 * 根据id查询图书
+	 * @param auto_id
+	 * @return
+	 */
 	public Book getBook(String auto_id) {
 		Book book = new Book();
 		String hql = "FROM Book as b where b.auto_id=:auto_id";
@@ -66,5 +91,4 @@ public class BookDao {
 		book = (Book) query.uniqueResult();
 		return book;
 	}
-
 }
