@@ -21,7 +21,7 @@ public class LoginAction {
 		this.password = password;
 	}
 
-	// 控制struts跳转到哪个页面的方法
+	// 鎺у埗struts璺宠浆鍒板摢涓〉闈㈢殑鏂规硶
 	public String execute() throws Exception {
 		if ("test".equals(this.userName) && "test".equals(this.password))
 			return "SUCCESS";
