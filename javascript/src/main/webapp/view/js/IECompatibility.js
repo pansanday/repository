@@ -17,7 +17,6 @@ function IEContentLoaded(callback) {
 IEContentLoaded(function() {
 	alert('hello');
 });
-// Test
 /**
  * 虚拟console对象
  * @param  {[type]} !window.console [description]
