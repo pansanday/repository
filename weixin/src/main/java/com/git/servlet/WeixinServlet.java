@@ -17,6 +17,7 @@ public class WeixinServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 请求校验,确认请求来自微信服务器:接收GET请求传递的4个参数,对请求进行校验,如果校验成功,则将接收到的参数echostr原样返回
      * 参见接入指南：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319&token=&lang=zh_CN
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,12 +27,16 @@ public class WeixinServlet extends HttpServlet {
         String echostr = req.getParameter("echostr"); // 随机字符串
 
         PrintWriter out = resp.getWriter();
+        // 若确认此次GET请求来自微信服务器,请原样返回echostr参数内容,则接入生效,成为开发者成功,否则接入失败
         if (CheckUtil.checkSignature(signature, timestamp, nonce)) {
             out.print(echostr);
         }
+        out.close();
+        out = null;
     }
 
     /**
+     * 处理微信服务器发来的消息
      * 参见消息接收和响应：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140453&token=&lang=zh_CN
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

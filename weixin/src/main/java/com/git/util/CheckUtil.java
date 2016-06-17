@@ -7,22 +7,33 @@ public class CheckUtil {
 
     private static final String token = "panda";
 
+    /**
+     * 
+     * @param signature	微信加密签名,signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数
+     * @param timestamp	时间戳
+     * @param nonce	随机数
+     * @return
+     */
     public static boolean checkSignature(String signature, String timestamp, String nonce) {
         String[] arr = new String[] { token, timestamp, nonce };
 
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);
 
-        // 生成字符串
+        // 将排序后的结果拼接成一个字符串 
+        // 拼接方式一
         StringBuffer content = new StringBuffer();
         for (int i = 0; i < arr.length; i++) {
             content.append(arr[i]);
         }
         
-        // 将三个参数字符串拼接成一个字符串进行sha1加密
+        // 拼接方式二
+        // String content = arr[0].concat(arr[1]).concat(arr[2]);
+        
+        // 将拼接成的字符串进行sha1加密
         String temp = getSha1(content.toString());
         
-        // 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
+        // 开发者获得加密后的字符串可与signature对比,标识该请求来源于微信
         return temp.equals(signature);
     }
     
