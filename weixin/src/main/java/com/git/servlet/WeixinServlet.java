@@ -19,6 +19,7 @@ public class WeixinServlet extends HttpServlet {
     /**
      * 请求校验,确认请求来自微信服务器:接收GET请求传递的4个参数,对请求进行校验,如果校验成功,则将接收到的参数echostr原样返回
      * 参见接入指南：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319&token=&lang=zh_CN
+     * 在Servlet中要有与提交方式对应的方法,即doPost或者doGet方法,直接访问Servlet而且没有声明访问类型,那么默认的是GET方式
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String signature = req.getParameter("signature"); // 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
