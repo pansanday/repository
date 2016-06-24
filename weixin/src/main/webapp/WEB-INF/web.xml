@@ -8,8 +8,25 @@
   	<servlet-name>weixinServlet</servlet-name>
   	<servlet-class>com.git.servlet.WeixinServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>coreServlet</servlet-name>
+  	<servlet-class>com.newversion.servlet.CoreServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>menuServlet</servlet-name>
+  	<servlet-class>com.newversion.servlet.MenuServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>weixinServlet</servlet-name>
   	<url-pattern>/wx.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>coreServlet</servlet-name>
+  	<url-pattern>/wx_core.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>menuServlet</servlet-name>
+  	<url-pattern>/wx_menu.do</url-pattern>
   </servlet-mapping>
 </web-app>
