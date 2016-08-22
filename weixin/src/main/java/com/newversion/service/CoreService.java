@@ -6,10 +6,22 @@ import javax.servlet.http.HttpServletRequest;
 import com.newversion.message.resp.TextMessage;
 import com.newversion.util.MessageUtil;
 
+/**
+ * 核心服务类
+ */
 public class CoreService {
+	
+	/**
+	 * 得到包含指定Unicode代码点的字符串
+	 * @param codePoint
+	 * @return
+	 */
+	private static String emoji(int codePoint) {
+		return String.valueOf(Character.toChars(codePoint));
+	}
+	
 	/**
 	 * 处理微信发来的请求
-	 * 
 	 * @param request
 	 * @return xml
 	 */
@@ -21,12 +33,22 @@ public class CoreService {
 		try {
 			// 调用parseXml方法解析请求消息
 			Map<String, String> requestMap = MessageUtil.parseXml(request);
-			// 发送方帐号
+			// 发送方帐号(open_id)
 			String fromUserName = requestMap.get("FromUserName");
-			// 开发者微信号
+			// 开发者微信号(公众账号)
 			String toUserName = requestMap.get("ToUserName");
 			// 消息类型
 			String msgType = requestMap.get("MsgType");
+			
+			System.out.println("msgType为:" + msgType);
+			System.out.println("用户发送的消息为:" + requestMap.get("Content"));
+			
+			// 定义消息内容(鬼节做南瓜灯)
+			StringBuffer sBuffer = new StringBuffer();
+			sBuffer.append("1.Unified Unicode").append("\n");
+			sBuffer.append(emoji(0x1f47B)).append("节做").append(emoji(0x1f383)).append("灯\n\n");
+			sBuffer.append("2.Softbank Unicode").append("\n");
+			sBuffer.append(emoji(0xE11B)).append("节做").append(emoji(0xE445)).append("灯");
 
 			// 回复文本消息
 			TextMessage textMessage = new TextMessage();
@@ -37,7 +59,7 @@ public class CoreService {
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-				respContent = "您发送的是文本消息！";
+				respContent = "您发送的是文本消息！\n" + sBuffer.toString();
 			}
 			// 图片消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
