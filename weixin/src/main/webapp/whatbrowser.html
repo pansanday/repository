@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html charset=UTF-8">
+<title>获取浏览器User Agent</title>
+<script type="text/javascript">
+	// 判断是不是微信浏览器
+	function isMicroMessenger() {
+		var result = false;
+		var ua = navigator.userAgent;
+		if (ua.indexOf('MicroMessenger') > -1) {
+			result = true;
+		}
+		return result;
+	}
+	document.write(navigator.userAgent);
+</script>
+</head>
+<body>
+
+</body>
+</html>

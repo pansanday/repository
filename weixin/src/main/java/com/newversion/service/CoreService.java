@@ -87,7 +87,16 @@ public class CoreService {
 				String eventType = requestMap.get("Event");
 				// 关注
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-					respContent = "谢谢您的关注！";
+					StringBuffer buffer = new StringBuffer();
+					buffer.append("您好,谢谢您的关注!请回复数字选择服务:").append("\n\n");
+					buffer.append("1 天气预报").append("\n");
+					buffer.append("2 公交查询").append("\n");
+					buffer.append("3 周边搜索").append("\n");
+					buffer.append("4 歌曲点播").append("\n");
+					buffer.append("5 人脸识别").append("\n");
+					buffer.append("6 聊天唠嗑").append("\n\n");
+					buffer.append("回复“?”显示此帮助菜单");
+					respContent = buffer.toString();
 				}
 				// 取消关注
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {

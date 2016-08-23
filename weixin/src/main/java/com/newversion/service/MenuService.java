@@ -30,11 +30,14 @@ public class MenuService {
 			// 消息类型
 			String msgType = requestMap.get("MsgType");
 
+			// 回复的消息
 			TextMessage textMessage = new TextMessage();
 			textMessage.setToUserName(fromUserName);
 			textMessage.setFromUserName(toUserName);
 			textMessage.setCreateTime(new Date().getTime());
 			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+			
+			System.out.println("msgType is : " + msgType);
 			// 事件推送
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
 				// 事件类型
@@ -42,7 +45,9 @@ public class MenuService {
 				System.out.println("eventType值为:" + eventType);
 				// 订阅
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-					textMessage.setContent("您好，欢迎关注网址导航！我们致力于打造精品网址聚合应用，为用户提供便捷的上网导航服务。体验生活，从这里开始！");
+//					textMessage.setContent("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1bb0d511204184a0&redirect_uri=http%3A%2F%2Fvip.ngrok.cc%2Fweixin%2FoauthServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+					// 您好，欢迎关注网址导航！
+					textMessage.setContent("想你了，怎么现在才来呢?\n我们致力于打造精品网址聚合应用，为用户提供便捷的上网导航服务。体验生活，从这里开始！");
 					// 将消息对象转换成xml
 					respXml = MessageUtil.messageToXml(textMessage);
 				}
@@ -100,12 +105,23 @@ public class MenuService {
 						System.out.println("100=>" + respXml);
 					}
 				}
-			}
-			// 当用户发消息时
-			else {
-				textMessage.setContent("请通过菜单使用网址导航服务！");
+			} else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
+				// 文本消息内容
+				String content = requestMap.get("Content");
+				// 呲牙表情的文本代码/::D
+				if (content.equals("/::D")) {
+					textMessage.setContent("什么事情这么高兴啊?[疑问] /疑问 /:?");
+				} else {
+					// #wechat_webview_type=1
+					textMessage.setContent("买书上<a href=\"http://m.dangdang.com\">当当网</a>!\n The message you sent is: " + requestMap.get("Content"));
+				}
+				// 将文本消息对象转换成XML字符串
 				respXml = MessageUtil.messageToXml(textMessage);
-				System.out.println("respXml=>" + respXml);
+				System.out.println("respXml=>\n" + respXml);
+			} else {
+				textMessage.setContent("Please use the menu provided！");
+				respXml = MessageUtil.messageToXml(textMessage);
+				System.out.println("respXml=>\n" + respXml);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
