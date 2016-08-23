@@ -16,6 +16,10 @@
   	<servlet-name>menuServlet</servlet-name>
   	<servlet-class>com.newversion.servlet.MenuServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>oauthServlet</servlet-name>
+  	<servlet-class>com.newversion.servlet.OAuthServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>weixinServlet</servlet-name>
@@ -29,4 +33,26 @@
   	<servlet-name>menuServlet</servlet-name>
   	<url-pattern>/wx_menu.do</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>oauthServlet</servlet-name>
+  	<url-pattern>/oauthServlet</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+  	<filter-name>browserFilter</filter-name>
+  	<filter-class>com.newversion.servlet.BrowserFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>browserFilter</filter-name>
+  	<url-pattern>*.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>browserFilter</filter-name>
+  	<url-pattern>*.png</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>browserFilter</filter-name>
+  	<url-pattern>*.jpg</url-pattern>
+  </filter-mapping>
+  
 </web-app>
