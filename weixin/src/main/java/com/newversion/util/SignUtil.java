@@ -3,6 +3,7 @@ package com.newversion.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import org.apache.commons.lang.StringUtils;
 
 public class SignUtil {
 	// 与开发模式接口配置信息中的Token保持一致
@@ -17,6 +18,13 @@ public class SignUtil {
 	public static boolean checkSignature(String signature, String timestamp, String nonce) {
 		// 对token、timestamp和nonce按字典排序
 		String[] paramArr = new String[] { token, timestamp, nonce };
+		System.out.println("token[" + token + "],timestamp[" + timestamp + "],nonce[" + nonce + "]");
+		System.out.println("paramArr length为:" + paramArr.length);
+		
+		if (StringUtils.isBlank(timestamp) || StringUtils.isBlank(nonce)) {
+			return false;
+		}
+		
 		Arrays.sort(paramArr);
 
 		// 将排序后的结果拼接成一个字符串
