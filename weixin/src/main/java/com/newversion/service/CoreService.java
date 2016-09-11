@@ -39,9 +39,12 @@ public class CoreService {
 			String toUserName = requestMap.get("ToUserName");
 			// 消息类型
 			String msgType = requestMap.get("MsgType");
+			// 消息创建时间
+			String createTime = requestMap.get("CreateTime");
+			// 语音识别内容
+			String recognition = requestMap.get("Recognition");
 			
 			System.out.println("msgType为:" + msgType);
-			System.out.println("用户发送的消息为:" + requestMap.get("Content"));
 			
 			// 定义消息内容(鬼节做南瓜灯)
 			StringBuffer sBuffer = new StringBuffer();
@@ -59,7 +62,9 @@ public class CoreService {
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-				respContent = "您发送的是文本消息！\n" + sBuffer.toString();
+				// 自定义表情的demo
+				// respContent = "您发送的是文本消息！\n" + sBuffer.toString();
+				respContent = ChatService.chat(fromUserName, createTime, requestMap.get("Content"));
 			}
 			// 图片消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -67,7 +72,9 @@ public class CoreService {
 			}
 			// 语音消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
-				respContent = "您发送的是语音消息！";
+				// respContent = "您发送的是语音消息！";
+				String preStr = "语音识别结果为:" + recognition + "\n";
+				respContent = preStr + ChatService.chat(fromUserName, createTime, recognition);
 			}
 			// 视频消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
