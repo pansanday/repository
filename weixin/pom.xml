@@ -10,6 +10,10 @@
 	<name>weixin Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<lucene.version>4.6.0</lucene.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -62,8 +66,32 @@
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
-			<classifier>jdk15</classifier><!--指定jdk版本-->
+			<classifier>jdk15</classifier><!--指定jdk版本 -->
 		</dependency>
+
+		<!-- mysql connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.39</version>
+		</dependency>
+
+		<!-- Lucene -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.janeluo</groupId> -->
+		<!-- <artifactId>ikanalyzer</artifactId> -->
+		<!-- <version>2012_u6</version> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 	<build>

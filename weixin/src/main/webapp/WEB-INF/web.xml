@@ -1,58 +1,61 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee    
+    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-<web-app>
-  <display-name>Weixin</display-name>
-  <servlet>
-  	<servlet-name>weixinServlet</servlet-name>
-  	<servlet-class>com.git.servlet.WeixinServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>coreServlet</servlet-name>
-  	<servlet-class>com.newversion.servlet.CoreServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>menuServlet</servlet-name>
-  	<servlet-class>com.newversion.servlet.MenuServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>oauthServlet</servlet-name>
-  	<servlet-class>com.newversion.servlet.OAuthServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>weixinServlet</servlet-name>
-  	<url-pattern>/wx.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>coreServlet</servlet-name>
-  	<url-pattern>/wx_core.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>menuServlet</servlet-name>
-  	<url-pattern>/wx_menu.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>oauthServlet</servlet-name>
-  	<url-pattern>/oauthServlet</url-pattern>
-  </servlet-mapping>
-  
-  <filter>
-  	<filter-name>browserFilter</filter-name>
-  	<filter-class>com.newversion.servlet.BrowserFilter</filter-class>
-  </filter>
-  <filter-mapping>
-  	<filter-name>browserFilter</filter-name>
-  	<url-pattern>*.html</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-  	<filter-name>browserFilter</filter-name>
-  	<url-pattern>*.png</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-  	<filter-name>browserFilter</filter-name>
-  	<url-pattern>*.jpg</url-pattern>
-  </filter-mapping>
-  
+	<display-name>Weixin</display-name>
+	<servlet>
+		<servlet-name>weixinServlet</servlet-name>
+		<servlet-class>com.git.servlet.WeixinServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>coreServlet</servlet-name>
+		<servlet-class>com.newversion.servlet.CoreServlet</servlet-class>
+		<!-- 表示Servlet被载入的顺序,该值越小,Servlet优先级越高,Web应用程序启动时就会最先被加载;如果没有对Servlet指定load-on-startup,Servlet会在首次访问时加载 -->
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>menuServlet</servlet-name>
+		<servlet-class>com.newversion.servlet.MenuServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>oauthServlet</servlet-name>
+		<servlet-class>com.newversion.servlet.OAuthServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>weixinServlet</servlet-name>
+		<url-pattern>/wx.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>coreServlet</servlet-name>
+		<url-pattern>/wx_core.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>menuServlet</servlet-name>
+		<url-pattern>/wx_menu.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>oauthServlet</servlet-name>
+		<url-pattern>/oauthServlet</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>browserFilter</filter-name>
+		<filter-class>com.newversion.servlet.BrowserFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>browserFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>browserFilter</filter-name>
+		<url-pattern>*.png</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>browserFilter</filter-name>
+		<url-pattern>*.jpg</url-pattern>
+	</filter-mapping>
+
 </web-app>
