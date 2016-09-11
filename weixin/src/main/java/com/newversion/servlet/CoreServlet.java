@@ -1,11 +1,13 @@
 package com.newversion.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.newversion.service.ChatService;
 import com.newversion.service.CoreService;
 import com.newversion.util.SignUtil;
 
@@ -50,5 +52,17 @@ public class CoreServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print(respXml);
 		out.close();
+	}
+
+
+	/**
+	 * 为防止重复创建索引,先判断索引文件目录是否存在,只有不存在时才创建索引
+	 * TODO: 当问答知识表的数据发生变化(新增,修改或删除)时,需要同步更新索引
+	 */
+	public void init() throws ServletException {
+		File indexDir = new File(ChatService.getIndexDir());
+		if (!indexDir.exists()) {
+			ChatService.createIndex();
+		}
 	}
 }
