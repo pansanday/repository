@@ -69,6 +69,16 @@ public class FastJsonDemo {
 		String jsonString3 = JSON.toJSONString(list, true);
 		System.out.println(jsonString3);
 		
+		/** 将JSON对象转为list */
+		List<User> userList = new ArrayList<User>();
+		JSONArray jArray = JSON.parseArray(jsonString3);
+		for (int i = 0; i < jArray.size(); i++) {
+			JSONObject object = jArray.getJSONObject(i);
+			User usr = JSON.parseObject(object.toJSONString(), User.class);
+			userList.add(usr);
+		}
+		System.out.println("将JSON对象转为list结果为:" + userList);
+		
 		/** 将map转为JSON对象**/
 	    Map<String, Address> map = new HashMap<String, Address>();  
 		map.put("address1", address1);
