@@ -1,4 +1,4 @@
-package com.git.util;
+package com.newversion.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

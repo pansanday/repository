@@ -6,10 +6,6 @@
 
 	<display-name>Weixin</display-name>
 	<servlet>
-		<servlet-name>weixinServlet</servlet-name>
-		<servlet-class>com.git.servlet.WeixinServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>coreServlet</servlet-name>
 		<servlet-class>com.newversion.servlet.CoreServlet</servlet-class>
 		<!-- 表示Servlet被载入的顺序,该值越小,Servlet优先级越高,Web应用程序启动时就会最先被加载;如果没有对Servlet指定load-on-startup,Servlet会在首次访问时加载 -->
@@ -24,10 +20,6 @@
 		<servlet-class>com.newversion.servlet.OAuthServlet</servlet-class>
 	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>weixinServlet</servlet-name>
-		<url-pattern>/wx.do</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>coreServlet</servlet-name>
 		<url-pattern>/wx_core.do</url-pattern>
