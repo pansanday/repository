@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * @see http://www.ffmpeg.org/
+ */
 public class AudioUtils {
 
 	/**
