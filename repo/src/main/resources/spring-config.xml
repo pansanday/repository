@@ -9,10 +9,19 @@
 
     <!-- 扫描注解 -->
     <context:component-scan base-package="com.pandaria">
+        <!-- 排除关于controller的配置 -->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-        <!-- 去除mq以及定时任务的依赖 -->
-        <context:exclude-filter type="regex" expression="org.skyopen.core.support.mq.*" />
-        <context:exclude-filter type="regex" expression="org.skyopen.core.support.scheduler.*" />
-        <context:exclude-filter type="regex" expression="org.skyopen.provider.scheduler.*" />
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+        <!-- 去除项目mq以及定时任务的依赖 -->
+        <context:exclude-filter type="regex" expression="org.xxxx.core.support.mq.*" />
+        <context:exclude-filter type="regex" expression="org.xxxx.core.support.scheduler.*" />
+        <context:exclude-filter type="regex" expression="org.xxxx.scheduler.*" />
     </context:component-scan>
+
+
+    <!-- 引入SPRING配置文件 -->
+    <import resource="config/data-source.xml"/>
+    <import resource="config/mybatis.xml"/>
+    <import resource="config/redis.xml"/>
+    <import resource="config/shiro.xml" />
 </beans>

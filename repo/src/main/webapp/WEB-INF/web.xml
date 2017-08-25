@@ -48,6 +48,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring-config.xml</param-value>
+        <!--
+            如果带有路径,则为: config/spring-config.xml
+            <param-value>classpath:config/spring-config.xml</param-value>
+        -->
     </context-param>
 
 
