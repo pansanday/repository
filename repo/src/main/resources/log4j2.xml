@@ -49,6 +49,7 @@
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
         <logger name="org.springframework" level="INFO"/>
+        <logger name="org.hibernate.validator" level="WARN" />
         <root level="all">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>

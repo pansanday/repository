@@ -17,6 +17,100 @@
 
     <context:annotation-config/>
 
+
+    <!-- Content strategy using path extension -->
+    <!--
+        Setup a simple strategy:
+           1. Take all the defaults.
+           2. Return XML by default when not sure.
+       -->
+    <!--<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="true" />
+        <property name="favorParameter" value="true"/>
+        <property name="parameterName" value="mediaType"/>
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="defaultContentType" value="application/json" />
+        <property name="useJaf" value="false" />
+
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json" />
+                <entry key="xml" value="application/xml" />
+                <entry key="html" value="text/html" />
+            </map>
+        </property>
+    </bean>
+
+    &lt;!&ndash; Make this available across all of Spring MVC &ndash;&gt;
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />-->
+
+
+    <!-- 配置视图解析器ModelAndView -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 逻辑名称的前缀 -->
+        <property name="prefix" value="/WEB-INF/views/" />
+        <!-- 返回的逻辑名称的后缀 -->
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 消息处理 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!--<ref bean="fastJsonHttpMessageConverter"/>-->
+            <ref bean="mappingJacksonHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- fastjson 消息转换器 -->
+    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>application/xml;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="fastJsonConfig">
+            <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+                <property name="serializeFilters" ref="bigDecimalValueFilter"/>
+                <property name="serializerFeatures">
+                    <array>
+                        <value>QuoteFieldNames</value>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+                        <value>WriteNullListAsEmpty</value>
+
+                        <!--<value>WriteBigDecimalAsPlain</value>
+                        <value>WriteNullNumberAsZero</value>-->
+                        <!--<value>WriteNullBooleanAsFalse</value>-->
+                    </array>
+                </property>
+                <!--<property name="features">
+                    <list>
+                        <value>AllowArbitraryCommas</value>
+                        <value>AllowUnQuotedFieldNames</value>
+                        <value>DisableCircularReferenceDetect</value>
+                    </list>
+                </property>-->
+                <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"></property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="bigDecimalValueFilter" class="com.pandaria.core.filter.BigDecimalValueFilter"/>
+
+    <!-- jackson 消息转换器 -->
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+        <property name="objectMapper" ref="jacksonObjectMapper"/>
+    </bean>
+    <bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+        <property name="dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+            </bean>
+        </property>
+    </bean>
+
     <!-- swagger相关配置 -->
     <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
     <mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
