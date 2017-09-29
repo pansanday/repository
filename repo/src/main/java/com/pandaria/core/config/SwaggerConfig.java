@@ -47,7 +47,7 @@ public class SwaggerConfig {
                 //.paths(PathSelectors.regex(""))
                 // .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .apis(handlersForEnd())
-                //.apis(Predicates.not(RequestHandlerSelectors.basePackage("org.skyopen.web.sys")))
+                //.apis(Predicates.not(RequestHandlerSelectors.basePackage("org.pandaria.web.sys")))
                 //.paths(excludePath("admin/"))
                 .paths(PathSelectors.any())
                 .build();

@@ -18,6 +18,34 @@
         <context:exclude-filter type="regex" expression="org.xxxx.scheduler.*" />
     </context:component-scan>
 
+    <!-- 验证码配置开始 -->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.image.width">134</prop>
+                        <prop key="kaptcha.image.height">60</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.noise.color">white</prop>
+                        <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
+                        <prop key="kaptcha.background.clear.from">white</prop><!-- 背景颜色渐变，开始颜色(green) -->
+                        <prop key="kaptcha.background.clear.to">white</prop><!-- 背景颜色渐变，结束颜色 -->
+                        <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.WaterRipple</prop><!-- 水纹 -->
+                        <prop key="kaptcha.background.impl">com.google.code.kaptcha.impl.DefaultBackground</prop><!-- 背景实现类 -->
+                        <prop key="kaptcha.border">yes</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.char.string">123456789ABCE</prop>
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>
+                        <prop key="kaptcha.textproducer.font.size">45</prop>
+                        <prop key="kaptcha.session.key">code</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <!-- 验证码配置结束 -->
 
     <!-- 引入SPRING配置文件 -->
     <import resource="config/data-source.xml"/>
