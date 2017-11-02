@@ -92,7 +92,7 @@
                         <value>DisableCircularReferenceDetect</value>
                     </list>
                 </property>-->
-                <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"></property>
+                <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
             </bean>
         </property>
     </bean>
