@@ -1,0 +1,38 @@
+Reference: https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html#skip-navbar_bottom
+建议显示声明serialVersionUID值，默认的serialVersionUID值计算会因编译器实现而异，在反序列化期间可能会导致意外的InvalidClassException
+因为，要确保跨不同的java编译器实现保持一致的serialVersionUID值，可序列化的类必须声明显示的serialVersionUID值.
+
+建议显示serialVersionUID声明尽可能使用private修饰符，因为这些声明仅适用于立即声明的类 - serialVersionUID字段作为继承成员是无用的。
+
+数组类无法声明显式的serialVersionUID，因此它们始终具有默认的计算值，但是对于数组类而言，不需要匹配serialVersionUID值。
+
+
+http://blademastercoder.github.io/2015/01/29/java-Serializable.html
+序列化：对象的寿命通常随着生成该对象的程序的终止而终止，有时候需要把在内存中的各种对象的状态（也就是实例变量，不是方法）保存下来，
+并且可以在需要时再将对象恢复。虽然你可以用你自己的各种各样的方法来保存对象的状态，但是Java给你提供一种应该比你自己的好的保存对象状态的机制，
+那就是序列化。
+
+总结：Java 序列化技术可以使你将一个对象的状态写入一个Byte 流里（序列化），并且可以从其它地方把该Byte 流里的数据读出来（反序列化）。
+
+序列化的用途
+1. 想把的内存中的对象状态保存到一个文件中或者数据库中时候
+2. 想把对象通过网络进行传播的时候
+
+
+
+序列化 ID 在 Eclipse 下提供了两种生成策略
+1. 一个是固定的 1L
+2. 一个是随机生成一个不重复的 long 类型数据（实际上是使用 JDK 工具，根据类名、接口名、成员方法及属性等来生成）
+
+
+transient关键字
+经常在实现了 Serializable接口的类中能看见transient关键字。这个关键字并不常见。 transient关键字的作用是：
+阻止实例中那些用此关键字声明的变量持久化；当对象被反序列化时（从源文件读取字节序列进行重构），这样的实例变量值不会被持久化和恢复。
+
+当某些变量不想被序列化，同是又不适合使用static关键字声明，那么此时就需要用transient关键字来声明该变量。
+
+
+https://www.ibm.com/developerworks/cn/java/j-lo-serial/
+RMI 技术是完全基于 Java 序列化技术的，服务器端接口调用所需要的参数对象来至于客户端，它们通过网络相互传输。这就涉及 RMI 的安全传输的问题。
+一些敏感的字段，如用户名密码（用户登录时需要对密码进行传输），我们希望对其进行加密，这时，就可以采用本节介绍的方法在客户端对密码进行加密，
+服务器端进行解密，确保数据传输的安全性。
