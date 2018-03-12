@@ -312,6 +312,12 @@
             <version>1.4.0</version>
         </dependency>
 
+        <!-- apache zookeeper -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.11</version>
+        </dependency>
     </dependencies>
 
     <build>
